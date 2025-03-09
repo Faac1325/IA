@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resultados de la Evaluación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .score {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #2196F3;
+        }
+        .question-item {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .question-item.correct {
+            border-left: 5px solid #4CAF50;
+            background-color: #E8F5E9;
+        }
+        .question-item.incorrect {
+            border-left: 5px solid #f44336;
+            background-color: #FFEBEE;
+        }
+        .answer {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .answer.correct {
+            color: #4CAF50;
+        }
+        .answer.incorrect {
+            color: #f44336;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #F5F5F5;
+            border-radius: 4px;
+            font-style: italic;
+        }
+        .summary {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #E3F2FD;
+            border-radius: 5px;
+        }
+        .back-button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resultados de la Evaluación</h1>
+    
+    <div class="result-box">
+        <div class="summary">
+            <h2>Resumen</h2>
+            <p>Respuestas Correctas: {{ result.correct_answers }} de {{ result.total_questions }}</p>
+            <p class="score">Calificación Final: {{ result.grade }}/10</p>
+        </div>
+
+        <h2>Detalle por Pregunta</h2>
+        {% for detail in result.details %}
+        <div class="question-item {% if detail.is_correct %}correct{% else %}incorrect{% endif %}">
+            <h3>{{ detail.question }}</h3>
+            <div class="answer {% if detail.is_correct %}correct{% else %}incorrect{% endif %}">
+                <p><strong>Tu respuesta:</strong> {{ detail.student_answer }}</p>
+                {% if not detail.is_correct %}
+                <p><strong>Respuesta correcta:</strong> {{ detail.correct_answer }}</p>
+                {% endif %}
+                <div class="explanation">
+                    <p><strong>Explicación:</strong> {{ detail.explanation }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="/" class="back-button">← Evaluar otro examen</a>
+</body>
+</html>

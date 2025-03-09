@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Automática de Respuestas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .upload-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .error-message {
+            color: #dc3545;
+            background-color: #ffe6e6;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border: 1px solid #dc3545;
+        }
+        .info-box {
+            background-color: #e7f3fe;
+            border: 1px solid #3498db;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evaluación Automática de Respuestas</h1>
+    
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="upload-container">
+        <h2>Subir Imagen del Examen</h2>
+        <p>Selecciona una imagen clara del examen para evaluarla</p>
+        
+        <div class="info-box">
+            <h3>Formato requerido:</h3>
+            <ul style="text-align: left;">
+                <li>Las preguntas deben estar numeradas y terminar en "?"</li>
+                <li>Las respuestas deben estar marcadas con uno de estos símbolos:
+                    <ul>
+                        <li>• (punto)</li>
+                        <li>* (asterisco)</li>
+                        <li>X o ✖ (equis)</li>
+                        <li>O o ○ (círculo)</li>
+                        <li>✸ (estrella)</li>
+                        <li>★ (estrella llena)</li>
+                        <li>✔ (check)</li>
+                    </ul>
+                </li>
+                <li>Todas las preguntas deben tener una respuesta marcada</li>
+            </ul>
+        </div>
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploaded_image" accept="image/*" required>
+            <br>
+            <button type="submit" class="button">Evaluar Respuesta</button>
+        </form>
+    </div>
+</body>
+</html>
